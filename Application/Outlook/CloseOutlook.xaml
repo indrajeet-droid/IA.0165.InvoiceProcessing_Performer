@@ -63,7 +63,7 @@
       <AssemblyReference>System.Configuration.Install</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="CloseOutlook" sap:VirtualizedContainerService.HintSize="634.8,1324" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="CloseOutlook" sap:VirtualizedContainerService.HintSize="634.8,1457.6" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="strUserName" />
       <Variable x:TypeArguments="scg:IEnumerable(sd:Process)" Name="ProcessList" />
@@ -90,7 +90,7 @@
         <InArgument x:TypeArguments="scg:IEnumerable(sd:Process)">[from p in Process.GetProcessesByName("outlook") select p]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:ForEach x:TypeArguments="sd:Process" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="592.8,899.2" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[ProcessList]">
+    <ui:ForEach x:TypeArguments="sd:Process" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="592.8,899.2" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[ProcessList]">
       <ui:ForEach.Body>
         <ActivityAction x:TypeArguments="sd:Process">
           <ActivityAction.Argument>
@@ -161,12 +161,7 @@
           </Sequence>
         </ActivityAction>
       </ui:ForEach.Body>
-      <sap:WorkflowViewStateService.ViewState>
-        <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-          <x:Boolean x:Key="IsPinned">False</x:Boolean>
-        </scg:Dictionary>
-      </sap:WorkflowViewStateService.ViewState>
     </ui:ForEach>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="592.8,93.6" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;CloseOutlook workflow ended&quot;]" />
   </Sequence>
 </Activity>
