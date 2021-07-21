@@ -1,6 +1,6 @@
 <Activity mc:Ignorable="sap sap2010" x:Class="Process" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="in_Config" Type="InArgument(x:String)" />
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
     <x:Property Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
   </x:Members>
   <mva:VisualBasic.Settings>
@@ -66,15 +66,51 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Process" sap:VirtualizedContainerService.HintSize="416,206.4" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Process" sap:VirtualizedContainerService.HintSize="416,492.8" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="strInvoiceNumber" />
+      <Variable x:TypeArguments="x:String" Name="strCustomerName" />
+      <Variable x:TypeArguments="x:String" Name="strLocation" />
+      <Variable x:TypeArguments="x:String" Name="strPhoneNumber" />
+      <Variable x:TypeArguments="x:String" Name="strTotal" />
+      <Variable x:TypeArguments="x:String" Name="strRefID" />
+    </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="374.4,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;test&quot;]" />
     <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke ExtractInformationFromPDF workflow" sap:VirtualizedContainerService.HintSize="374.4,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Application\Misc\ExtractInformationFromPDF.xaml">
       <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="x:String" x:Key="in_FilePath">[in_TransactionItem.SpecificContent("FilePath").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_FilePath">
+          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_TransactionItem.SpecificContent(&quot;FilePath&quot;).ToString" />
+        </InArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_InvoiceNumber">
+          <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="strInvoiceNumber" />
+        </OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_CustomerName">
+          <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="strCustomerName" />
+        </OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_Location">
+          <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="strLocation" />
+        </OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_PhoneNumber">
+          <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="strPhoneNumber" />
+        </OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_Total">
+          <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="strTotal" />
+        </OutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke UpdateDataInPortal workflow" sap:VirtualizedContainerService.HintSize="374.4,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Application\IExplore\UpdateDataInPortal.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_InvoiceNumber">[strInvoiceNumber]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_CustomerName">[strCustomerName]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_Location">[strLocation]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_PhoneNumber">[strPhoneNumber]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_Total">[strTotal]</InArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_RefID">[strRefID]</OutArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
   </Sequence>
