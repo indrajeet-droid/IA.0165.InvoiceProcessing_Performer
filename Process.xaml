@@ -6,7 +6,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>693.6,586.4</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>693.6,711.2</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Process_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -66,7 +66,7 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Process" sap:VirtualizedContainerService.HintSize="416,492.8" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Process" sap:VirtualizedContainerService.HintSize="416,646.4" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="strInvoiceNumber" />
       <Variable x:TypeArguments="x:String" Name="strCustomerName" />
@@ -111,6 +111,16 @@
         <InArgument x:TypeArguments="x:String" x:Key="in_PhoneNumber">[strPhoneNumber]</InArgument>
         <InArgument x:TypeArguments="x:String" x:Key="in_Total">[strTotal]</InArgument>
         <OutArgument x:TypeArguments="x:String" x:Key="out_RefID">[strRefID]</OutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke UpdateTheReport workflow" sap:VirtualizedContainerService.HintSize="374.4,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Application\Misc\UpdateTheReport.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_InvoiceNumber" />
+        <InArgument x:TypeArguments="x:String" x:Key="in_CustomerName" />
+        <InArgument x:TypeArguments="x:String" x:Key="in_MobileNumber" />
+        <InArgument x:TypeArguments="x:String" x:Key="in_Total" />
+        <InArgument x:TypeArguments="x:String" x:Key="in_RefID" />
+        <InArgument x:TypeArguments="x:String" x:Key="in_Config" />
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
   </Sequence>
